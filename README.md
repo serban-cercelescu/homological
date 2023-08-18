@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# homological
-=======
 # Homological
 A simplicial homology calculator written in Haskell
 
@@ -13,4 +10,3 @@ A simplicial homology calculator written in Haskell
 - Optimize some of the computation involved in the boundary map function
 #### Features:
 - Given a chain map, compute its corresponding matrices in homology
->>>>>>> 77a01ae (Changed readme.md)
