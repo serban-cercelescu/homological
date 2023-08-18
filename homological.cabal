@@ -1,0 +1,61 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.35.1.
+--
+-- see: https://github.com/sol/hpack
+
+name:           homological
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/githubuser/homological#readme>
+homepage:       https://github.com/githubuser/homological#readme
+bug-reports:    https://github.com/githubuser/homological/issues
+author:         Author name here
+maintainer:     example@example.com
+copyright:      2023 Author name here
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    CHANGELOG.md
+
+source-repository head
+  type: git
+  location: https://github.com/githubuser/homological
+
+library
+  exposed-modules:
+      Homology
+      Lib
+      Matrix
+      Simplicial
+      SNF
+  other-modules:
+      Paths_homological
+  hs-source-dirs:
+      src
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints
+  build-depends:
+      array >=0.5.4.0 && <0.6
+    , base >=4.7 && <5
+    , containers >=0.6.7 && <0.7
+    , mtl >=2.2.2 && <3.0
+    , parallel >=3.2 && <4.0
+  default-language: Haskell2010
+
+test-suite homological-test
+  type: exitcode-stdio-1.0
+  main-is: Spec.hs
+  other-modules:
+      Paths_homological
+  hs-source-dirs:
+      test
+  ghc-options: -Wall -Wcompat -Widentities -Wincomplete-record-updates -Wincomplete-uni-patterns -Wmissing-export-lists -Wmissing-home-modules -Wpartial-fields -Wredundant-constraints -threaded -rtsopts -with-rtsopts=-N
+  build-depends:
+      array >=0.5.4.0 && <0.6
+    , base >=4.7 && <5
+    , containers >=0.6.7 && <0.7
+    , homological
+    , mtl >=2.2.2 && <3.0
+    , parallel >=3.2 && <4.0
+  default-language: Haskell2010
