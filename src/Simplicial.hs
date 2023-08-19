@@ -96,13 +96,19 @@ nthHomology :: SimplicialComplex -> Int -> ZModule
 nthHomology spx n = homologyModule (nthBoundary spx (n + 1)) (nthBoundary spx n)
 
 nthBettiNumber :: SimplicialComplex -> Int -> Int
-nthBettiNumber = undefined
+nthBettiNumber cpx n = length $ filter (==0) $ nthHomology cpx n
 
 nthTorsionNumbers :: SimplicialComplex -> Int -> [Integer]
-nthTorsionNumbers = undefined
+nthTorsionNumbers cpx n = filter (/=0) $ nthHomology cpx n
 
 homologySequence :: SimplicialComplex -> [[Integer]]
-homologySequence = undefined
+homologySequence cpx = ans where
+  cpx' = let SimplicialComplex _ cpx' = cpx in cpx'
+  dimension = maximum [let Simplex s = s' in length s | s' <- cpx']
+
+  boundaryMaps = [nthBoundary cpx i | i <- [0 .. dimension]]
+  ans = uncurry (flip homologyModule) <$> zip boundaryMaps (tail boundaryMaps)
+
 
 
 ----------------------------- Utils ------------------------------
