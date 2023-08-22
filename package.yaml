@@ -9,6 +9,10 @@ copyright:           "2023 Author name here"
 extra-source-files:
 - README.md
 - CHANGELOG.md
+extra-source-files:
+  - README.md
+  - CHANGELOG.md
+  - src/*.cpp
 
 # Metadata used when publishing your package
 # synopsis:            Short description of your package
@@ -39,6 +43,15 @@ ghc-options:
 
 library:
   source-dirs: src
+  c-sources:
+  - src/snf.cpp
+  cc-options:
+  - -std=c++17
+  - -Ofast
+  when:
+    - condition: os(linux)
+      extra-libraries: stdc++
+
 
 tests:
   homological-test:

@@ -8,6 +8,8 @@ module Simplicial (
   nthBettiNumber,
   nthTorsionNumbers,
   homologySequence,
+  triangle,
+  myComplex,
   eight,
   rp2,
   torus
@@ -85,11 +87,13 @@ nthBoundary cpx n = boundaryMap where
   faces :: Simplex -> [Simplex]
   faces (Simplex xs) = Simplex <$> [take i xs ++ drop (i + 1) xs | i <- [0 .. length xs - 1]]
 
-  boundaryMap = transpose $ array (1, s0) $ do
-    (i, spx) <- zip [1 .. s0] simplices0
-    let iFaces = Map.fromList $ (\(face, idx) -> (face, if odd idx then -1 else 1)) <$> zip ((faceToInt %) <$> faces spx) [0..]
-    let matRow = array (1, sf) [(j, Map.findWithDefault 0 j iFaces) | j <- [1 .. sf]]
-    return (i, matRow)
+  boundaryMap = transpose $ array ((1, 1), (s0, sf)) entries
+    where
+      entries = do
+        (i, spx) <- zip [1 .. s0] simplices0
+        let iFaces = Map.fromList $ (\(face, idx) -> (face, if odd idx then -1 else 1)) <$> zip ((faceToInt %) <$> faces spx) [0..]
+        j <- [1 .. sf]
+        return ((i, j), Map.findWithDefault 0 j iFaces)
 
 
 nthHomology :: SimplicialComplex -> Int -> ZModule
@@ -124,6 +128,12 @@ isContained (x:xs) (y:ys)
 
 
 --------------------------- Examples -----------------------------
+
+triangle :: SimplicialComplex
+triangle = newSimplicialComplex 3 [[1, 2], [2, 3], [1, 3]]
+
+myComplex :: SimplicialComplex
+myComplex = newSimplicialComplex 4 [[1, 2], [2, 3], [3, 1], [1, 4], [3, 4]]
 
 eight :: SimplicialComplex
 eight = newSimplicialComplex 5 [[1, 2], [2, 3], [3, 1], [1, 4], [4, 5], [5, 1]]
